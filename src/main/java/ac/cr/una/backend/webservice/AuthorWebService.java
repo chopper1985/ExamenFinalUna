@@ -5,14 +5,14 @@
  */
 package ac.cr.una.backend.webservice;
 
+import ac.cr.una.backend.dao.AuthorContactDAO;
+import ac.cr.una.backend.dao.AuthorContactDAOImpl;
 import ac.cr.una.backend.dao.AuthorDAO;
 import ac.cr.una.backend.dao.AuthorDAOImpl;
-import ac.cr.una.backend.dao.ConsultorioDAOHibernateImpl;
 import ac.cr.una.backend.model.Author;
-import ac.cr.una.backend.model.Consultorio;
+import ac.cr.una.backend.model.AuthorContact;
 import ac.cr.una.backend.service.AuthorService;
 import ac.cr.una.backend.service.AuthorServiceImpl;
-import ac.cr.una.backend.service.ConsultorioServiceImpl;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,6 +30,7 @@ import javax.ws.rs.core.UriInfo;
 public class AuthorWebService {
 
     private AuthorDAO autorDAO;
+    private AuthorContactDAO autorContactDAO;
     private AuthorService autorService;
 
     @Context
@@ -60,6 +61,19 @@ public class AuthorWebService {
         autorService = new AuthorServiceImpl(autorDAO);
 
         authorList = autorService.findAll();
+
+        return authorList;
+    }
+    
+        @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<AuthorContact> getAllAuthorss() {
+        List<AuthorContact> authorList = null;
+        autorContactDAO = new AuthorContactDAOImpl();
+        autorService = new AuthorServiceImpl();
+
+        //authorList = autorService.findAll();
 
         return authorList;
     }

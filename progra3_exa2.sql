@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-01-2017 a las 21:11:53
+-- Tiempo de generación: 31-01-2017 a las 23:32:19
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -28,9 +28,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `author` (
   `idAuthor` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`idAuthor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  `name` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`idAuthor`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `author`
+--
+
+INSERT INTO `author` (`idAuthor`, `name`) VALUES
+(2, 'Calo'),
+(1, 'Josue');
 
 -- --------------------------------------------------------
 
@@ -92,8 +101,8 @@ ALTER TABLE `authorcontact`
 -- Filtros para la tabla `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`idType`) REFERENCES `booktype` (`idType`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`idType`) REFERENCES `booktype` (`idType`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
