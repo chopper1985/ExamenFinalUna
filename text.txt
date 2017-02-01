@@ -1,0 +1,57 @@
+link para obtener todos http://localhost:8080/BackEndExamen/rest/authors
+
+metodo para insertar autor http://localhost:8080/BackEndExamen/rest/authors
+ {
+    "author": {
+      "idAuthor": "",
+      "name": "kike"
+    },
+    "contact": "85986784",
+    "idAuthorContact": "",
+    "type": "casa"
+  }
+
+
+metodo para insertar book   http://localhost:8080/BackEndExamen/rest/books
+
+
+{
+  "author": 2 {
+    "idAuthor": ,
+    "name": "lindo"
+  },
+  "dateRelease": "2016-10-03T00:00:00-06:00",
+  "idBook": 6,
+  "name": "harry photer",
+  "price": 5000,
+  "type": {
+    "idType": 5,
+    "type": "comedia"
+  }
+}
+{
+  "author": {
+    "idAuthor": 2,
+    "name": "Calo"
+  },
+  "dateRelease": "2013-11-01T00:00:00-06:00",
+  "idBook": 7,
+  "name": "las cronicas",
+  "price": 2000,
+  "type": {
+    "idType": 4,
+    "type": "fision"
+  }
+}
+
+
+
+MEDOTO PARA INSRTEAR BOOKTYPE http://localhost:8080/BackEndExamen/rest/booktypes
+
+
+
+{
+"idType":"",
+"type":"AVENTURA"
+  
+}
