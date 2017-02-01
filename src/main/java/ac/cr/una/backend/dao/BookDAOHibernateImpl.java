@@ -8,8 +8,8 @@ package ac.cr.una.backend.dao;
 import ac.cr.una.backend.model.Book;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -47,18 +47,25 @@ public class BookDAOHibernateImpl implements BookDAO {
 
         listBook = findAll();
 
-        listBook.stream().map((book) -> {
-            session.beginTransaction();
-            return book;
-        }).map((book) -> {
-            session.delete(book);
-            return book;
-        }).forEachOrdered((_item) -> {
-            session.getTransaction().commit();
-        });
+        try {
 
-        returnRes = true;
-        
+            listBook.stream().map((book) -> {
+                session.beginTransaction();
+                return book;
+            }).map((book) -> {
+                session.delete(book);
+                return book;
+            }).forEachOrdered((_item) -> {
+                session.getTransaction().commit();
+            });
+            returnRes = true;
+        } catch (ConstraintViolationException ex) {
+            returnRes = false;
+
+        } catch (Exception e) {
+            returnRes = false;
+        }
+
         return returnRes;
 
     }

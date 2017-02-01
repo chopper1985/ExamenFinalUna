@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -22,7 +21,7 @@ import javax.persistence.Table;
  *
  * @author Josue
  */
-@Entity
+@javax.persistence.Entity(name = "authorcontact")
 @Table(name = "authorcontact", catalog = "progra3_exa2")
 
 public class AuthorContact implements Serializable {

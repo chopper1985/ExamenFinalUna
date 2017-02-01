@@ -9,7 +9,9 @@ import ac.cr.una.backend.model.BookType;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
+
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -37,17 +39,25 @@ public class BookTypeDAOHibernateImpl implements BookTypeDAO {
 
         listBook = findAll();
 
-        listBook.stream().map((book) -> {
-            session.beginTransaction();
-            return book;
-        }).map((book) -> {
-            session.delete(book);
-            return book;
-        }).forEachOrdered((_item) -> {
-            session.getTransaction().commit();
-        });
+        try {
+            listBook.stream().map((book) -> {
+                session.beginTransaction();
+                return book;
+            }).map((book) -> {
+                session.delete(book);
+                return book;
+            }).forEachOrdered((_item) -> {
+                session.getTransaction().commit();
+            });
 
-        returnRes = true;
+            returnRes = true;
+
+        } catch (ConstraintViolationException ex) {
+            returnRes = false;
+
+        } catch (Exception e) {
+            returnRes = false;
+        }
 
         return returnRes;
 
@@ -63,7 +73,17 @@ public class BookTypeDAOHibernateImpl implements BookTypeDAO {
 
     @Override
     public BookType findByName(String name) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return null;
+      
+        //Busqueda por nombre
+        Query query = session.createQuery("from booktype where type = :type");
+        query.setParameter("type", name);
+
+        BookType bookType = null;
+
+        if (query.list().size() > 0) {
+            bookType = (BookType) query.list().get(0);
+        }
+
+        return bookType;
     }
 }

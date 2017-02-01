@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -46,18 +47,28 @@ public class AuthorContactDAOImpl implements AuthorContactDAO {
         List<AuthorContact> listAuthor;
 
         listAuthor = findAll();
+        try {
+            
+            listAuthor.stream().map((authorContact) -> {
+                session.beginTransaction();
+                return authorContact;
+            }).map((authorContact) -> {
+                session.delete(authorContact);
+                return authorContact;
+            }).forEachOrdered((_item) -> {
+                session.getTransaction().commit();
+            });
+            
+            returnRes = true;
+            
+        } catch (ConstraintViolationException ex) {
+            returnRes = false;
 
-        listAuthor.stream().map((authorContact) -> {
-            session.beginTransaction();
-            return authorContact;
-        }).map((authorContact) -> {
-            session.delete(authorContact);
-            return authorContact;
-        }).forEachOrdered((_item) -> {
-            session.getTransaction().commit();
-        });
+        } catch (Exception e) {
+            returnRes = false;
+        }
 
-        returnRes = true;
+      
         
         return returnRes;
 

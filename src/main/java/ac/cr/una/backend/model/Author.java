@@ -8,7 +8,6 @@ package ac.cr.una.backend.model;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -19,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  *
  * @author Josue
  */
-@Entity
+@javax.persistence.Entity(name = "author")
 @Table(name = "author", catalog = "progra3_exa2", uniqueConstraints = {
     @UniqueConstraint(columnNames = "name")})
 

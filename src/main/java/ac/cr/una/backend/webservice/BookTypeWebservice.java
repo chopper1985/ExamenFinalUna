@@ -46,7 +46,7 @@ public class BookTypeWebservice {
 
   
     @DELETE
-    @Path("/{id}")
+    @Path("/")
     public boolean deleteAll() {
         boolean result;
         bookTypeDAO = new BookTypeDAOHibernateImpl();

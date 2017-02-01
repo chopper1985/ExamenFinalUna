@@ -21,11 +21,12 @@ public class AuthorDAOImpl implements AuthorDAO {
 
     @Override
     public Author findByName(String name) {
-        Author autor = null;
-        //Busqueda por nombre
 
+        //Busqueda por nombre
         Query query = session.createQuery("from author where name = :name");
         query.setParameter("name", name);
+
+        Author autor = null;
 
         if (query.list().size() > 0) {
             autor = (Author) query.list().get(0);
