@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 31-01-2017 a las 23:32:19
+-- Tiempo de generación: 01-02-2017 a las 16:20:11
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `name` varchar(12) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idAuthor`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `author`
@@ -39,7 +39,9 @@ CREATE TABLE IF NOT EXISTS `author` (
 
 INSERT INTO `author` (`idAuthor`, `name`) VALUES
 (2, 'Calo'),
-(1, 'Josue');
+(7, 'juadsfdsfn2'),
+(6, 'juan2'),
+(3, 'lindo');
 
 -- --------------------------------------------------------
 
@@ -49,12 +51,23 @@ INSERT INTO `author` (`idAuthor`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `authorcontact` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idAuthorContact` int(11) NOT NULL,
+  `idAuthor` int(11) NOT NULL,
   `contact` text COLLATE utf8_spanish_ci NOT NULL,
   `type` text COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_author` (`idAuthorContact`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  KEY `id_author` (`idAuthor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=13 ;
+
+--
+-- Volcado de datos para la tabla `authorcontact`
+--
+
+INSERT INTO `authorcontact` (`id`, `idAuthor`, `contact`, `type`) VALUES
+(8, 2, '1313443242', 'Cel'),
+(9, 2, '1313443242', 'Cel2'),
+(10, 2, '1313443242', 'Cel23'),
+(11, 6, '1313443242', 'Cel23'),
+(12, 7, '1313443242', 'Cel23dfdsf');
 
 -- --------------------------------------------------------
 
@@ -73,7 +86,15 @@ CREATE TABLE IF NOT EXISTS `book` (
   KEY `idAuthor` (`idAuthor`,`idType`),
   KEY `idType` (`idType`),
   KEY `idAuthor_2` (`idAuthor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `book`
+--
+
+INSERT INTO `book` (`idBook`, `idAuthor`, `idType`, `name`, `dateRelease`, `price`) VALUES
+(6, 3, 5, 'harry photer', '2016-10-03', 5000),
+(7, 2, 4, 'las cronicas', '2013-11-01', 2000);
 
 -- --------------------------------------------------------
 
@@ -85,7 +106,17 @@ CREATE TABLE IF NOT EXISTS `booktype` (
   `idType` int(11) NOT NULL AUTO_INCREMENT,
   `type` text COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idType`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=8 ;
+
+--
+-- Volcado de datos para la tabla `booktype`
+--
+
+INSERT INTO `booktype` (`idType`, `type`) VALUES
+(4, 'fision'),
+(5, 'comedia'),
+(6, 'accion'),
+(7, 'AVENTURA');
 
 --
 -- Restricciones para tablas volcadas
@@ -95,14 +126,14 @@ CREATE TABLE IF NOT EXISTS `booktype` (
 -- Filtros para la tabla `authorcontact`
 --
 ALTER TABLE `authorcontact`
-  ADD CONSTRAINT `authorcontact_ibfk_1` FOREIGN KEY (`idAuthorContact`) REFERENCES `author` (`idAuthor`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `authorcontact_ibfk_2` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`);
 
 --
 -- Filtros para la tabla `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `book_ibfk_2` FOREIGN KEY (`idType`) REFERENCES `booktype` (`idType`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `book_ibfk_3` FOREIGN KEY (`idAuthor`) REFERENCES `author` (`idAuthor`),
+  ADD CONSTRAINT `book_ibfk_4` FOREIGN KEY (`idType`) REFERENCES `booktype` (`idType`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

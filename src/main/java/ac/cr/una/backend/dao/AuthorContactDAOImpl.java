@@ -34,9 +34,30 @@ public class AuthorContactDAOImpl implements AuthorContactDAO {
 
     @Override
     public AuthorContact save(AuthorContact authorContact) {
-        session.beginTransaction();
-        session.save(authorContact);
-        session.getTransaction().commit();
+
+        List<Author> listaAuthor = new ArrayList<>();
+        
+        int idAuthor;
+        
+        //Busqueda por nombre
+
+        String hql = "from author where idAuthor = :idAuthor";
+        Query query = session.createQuery(hql);
+        query.setParameter("idAuthor", authorContact.getAuthor().getIdAuthor());
+
+        if (query.list().size() > 0) {
+            session.beginTransaction();
+            
+            authorContact.setAuthor((Author) query.list().get(0));
+            session.save(authorContact);
+            session.getTransaction().commit();
+        } else {
+            session.beginTransaction();         
+            idAuthor = (int) session.save(authorContact.getAuthor());
+            authorContact.getAuthor().setIdAuthor(idAuthor);
+            session.save(authorContact);
+            session.getTransaction().commit();
+        }
 
         return authorContact;
     }
@@ -48,7 +69,7 @@ public class AuthorContactDAOImpl implements AuthorContactDAO {
 
         listAuthor = findAll();
         try {
-            
+
             listAuthor.stream().map((authorContact) -> {
                 session.beginTransaction();
                 return authorContact;
@@ -58,9 +79,9 @@ public class AuthorContactDAOImpl implements AuthorContactDAO {
             }).forEachOrdered((_item) -> {
                 session.getTransaction().commit();
             });
-            
+
             returnRes = true;
-            
+
         } catch (ConstraintViolationException ex) {
             returnRes = false;
 
@@ -68,8 +89,6 @@ public class AuthorContactDAOImpl implements AuthorContactDAO {
             returnRes = false;
         }
 
-      
-        
         return returnRes;
 
     }

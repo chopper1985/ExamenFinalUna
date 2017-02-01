@@ -71,8 +71,8 @@ public class BookWebservice {
         return result;
     }
 
-    @PUT
-    @Path("/")
+    @GET
+    @Path("/totalprice")
     public float getTotalPrice() {
         float result;
         bookDAO = new BookDAOHibernateImpl();
