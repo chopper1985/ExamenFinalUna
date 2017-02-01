@@ -17,7 +17,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
-
+/**
+ *
+ * @author Josue
+ */
 @Path("booktypes")
 public class BookTypeWebservice {
 
@@ -27,10 +30,17 @@ public class BookTypeWebservice {
     @Context
     private UriInfo context;
 
+    /**
+     *
+     */
     public BookTypeWebservice() {
     }
     
-    
+    /**
+     *
+     * @param name
+     * @return
+     */
     @GET
     @Path("/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -44,7 +54,10 @@ public class BookTypeWebservice {
         return book;
     }
 
-  
+    /**
+     *
+     * @return
+     */
     @DELETE
     @Path("/")
     public boolean deleteAll() {
@@ -57,6 +70,11 @@ public class BookTypeWebservice {
         return result;
     }
 
+    /**
+     *
+     * @param bookType
+     * @return
+     */
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)

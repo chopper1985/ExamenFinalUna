@@ -13,10 +13,13 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
+/**
+ *
+ * @author Josue
+ */
 @Path("books")
 public class BookWebservice {
 
@@ -32,6 +35,10 @@ public class BookWebservice {
     public BookWebservice() {
     }
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +52,11 @@ public class BookWebservice {
         return bookList;
     }
 
+    /**
+     *
+     * @param book
+     * @return
+     */
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -59,6 +71,10 @@ public class BookWebservice {
         return book;
     }
 
+    /**
+     *
+     * @return
+     */
     @DELETE
     @Path("/")
     public boolean deleteAll() {
@@ -71,6 +87,10 @@ public class BookWebservice {
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     @GET
     @Path("/totalprice")
     public float getTotalPrice() {

@@ -21,6 +21,10 @@ public class BookDAOHibernateImpl implements BookDAO {
 
     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Book> findAll() {
         List<Book> listbook = new ArrayList<>();
@@ -30,6 +34,11 @@ public class BookDAOHibernateImpl implements BookDAO {
         return listbook;
     }
 
+    /**
+     *
+     * @param book
+     * @return
+     */
     @Override
     public Book save(Book book) {
         session.beginTransaction();
@@ -39,6 +48,10 @@ public class BookDAOHibernateImpl implements BookDAO {
         return book;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean deleteAll() {
 

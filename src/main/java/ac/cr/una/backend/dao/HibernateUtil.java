@@ -7,7 +7,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
- * @author mguzmana
+ * @author Josue
  */
 public class HibernateUtil {
 
@@ -19,10 +19,17 @@ public class HibernateUtil {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    /**
+     *
+     */
     public static void shutdown() {
         // Close caches and connection pools
         getSessionFactory().close();
