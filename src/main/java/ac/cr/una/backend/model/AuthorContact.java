@@ -30,11 +30,12 @@ public class AuthorContact implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    private int idAuthorContact;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "idAuthor", nullable = false)
     private Author author;
+    
     @Column(name = "contact", nullable = false)
     private String contact;
     @Column(name = "type", nullable = false)
@@ -43,9 +44,9 @@ public class AuthorContact implements Serializable {
     public AuthorContact() {
     }
 
-    public AuthorContact(int id, Author author, String Contact, String type) {
+    public AuthorContact(int idAuthorContact, Author author, String Contact, String type) {
 
-        this.id = id;
+        this.idAuthorContact = idAuthorContact;
 
         this.author = author;
 
@@ -54,13 +55,14 @@ public class AuthorContact implements Serializable {
         this.type = type;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAuthorContact() {
+        return idAuthorContact;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAuthorContact(int idAuthorContact) {
+        this.idAuthorContact = idAuthorContact;
     }
+
 
     public Author getAuthor() {
         return author;
@@ -89,7 +91,7 @@ public class AuthorContact implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + this.id;
+        hash = 17 * hash + this.idAuthorContact;
         hash = 17 * hash + Objects.hashCode(this.author);
         hash = 17 * hash + Objects.hashCode(this.contact);
         hash = 17 * hash + Objects.hashCode(this.type);
@@ -108,7 +110,7 @@ public class AuthorContact implements Serializable {
             return false;
         }
         final AuthorContact other = (AuthorContact) obj;
-        if (this.id != other.id) {
+        if (this.idAuthorContact != other.idAuthorContact) {
             return false;
         }
         if (!Objects.equals(this.contact, other.contact)) {
@@ -125,7 +127,7 @@ public class AuthorContact implements Serializable {
 
     @Override
     public String toString() {
-        return "AuthorContact{" + "idAuthorContact=" + id + ", author=" + author + ", Contact=" + contact + ", type=" + type + '}';
+        return "AuthorContact{" + "idAuthorContact=" + idAuthorContact + ", author=" + author + ", Contact=" + contact + ", type=" + type + '}';
     }
 
 }

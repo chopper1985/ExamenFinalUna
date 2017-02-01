@@ -5,8 +5,7 @@
  */
 package ac.cr.una.backend.dao;
 
-import ac.cr.una.backend.model.Author;
-import ac.cr.una.backend.model.AuthorContact;
+import ac.cr.una.backend.model.Book;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -18,41 +17,42 @@ import org.hibernate.Session;
  *
  * @author Josue
  */
-public class AuthorContactDAOImpl implements AuthorContactDAO {
+public class BookDAOHibernateImpl implements BookDAO {
 
     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
     @Override
-    public List<AuthorContact> findAll() {
-        List<AuthorContact> listAuthor = new ArrayList<>();
+    public List<Book> findAll() {
+        List<Book> listbook = new ArrayList<>();
 
-        listAuthor = session.createCriteria(AuthorContact.class).list();
+        listbook = session.createCriteria(Book.class).list();
 
-        return listAuthor;
+        return listbook;
     }
 
     @Override
-    public AuthorContact save(AuthorContact authorContact) {
+    public Book save(Book book) {
         session.beginTransaction();
-        session.save(authorContact);
+        session.save(book);
         session.getTransaction().commit();
 
-        return authorContact;
+        return book;
     }
 
     @Override
     public boolean deleteAll() {
+
         boolean returnRes = false;
-        List<AuthorContact> listAuthor;
+        List<Book> listBook;
 
-        listAuthor = findAll();
+        listBook = findAll();
 
-        listAuthor.stream().map((authorContact) -> {
+        listBook.stream().map((book) -> {
             session.beginTransaction();
-            return authorContact;
-        }).map((authorContact) -> {
-            session.delete(authorContact);
-            return authorContact;
+            return book;
+        }).map((book) -> {
+            session.delete(book);
+            return book;
         }).forEachOrdered((_item) -> {
             session.getTransaction().commit();
         });

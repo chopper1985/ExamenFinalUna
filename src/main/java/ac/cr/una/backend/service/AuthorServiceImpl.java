@@ -1,45 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ac.cr.una.backend.service;
 
+import ac.cr.una.backend.dao.AuthorContactDAO;
 import ac.cr.una.backend.dao.AuthorDAO;
 import ac.cr.una.backend.model.Author;
+import ac.cr.una.backend.model.AuthorContact;
 import java.util.List;
 
-/**
- *
- * @author Josue
- */
 public class AuthorServiceImpl implements AuthorService {
 
-    private AuthorDAO dao;
+    private AuthorContactDAO authorContacDAO;
+    private AuthorDAO authorDAO;
 
     public AuthorServiceImpl() {
     }
 
-    public AuthorServiceImpl(AuthorDAO dao) {
-        this.dao = dao;
+    public AuthorServiceImpl(AuthorContactDAO authorContacDAO) {
+        this.authorContacDAO = authorContacDAO;
     }
 
-    public AuthorDAO getDao() {
-        return dao;
+    public AuthorServiceImpl(AuthorDAO authorDAO) {
+        this.authorDAO = authorDAO;
     }
 
-    public void setDao(AuthorDAO dao) {
-        this.dao = dao;
-    }
     
+    public AuthorServiceImpl(AuthorContactDAO authorContacDAO, AuthorDAO authorDAO) {
+        this.authorContacDAO = authorContacDAO;
+        this.authorDAO = authorDAO;
+    }
+
+    public AuthorContactDAO getAuthorContacDAO() {
+        return authorContacDAO;
+    }
+
+    public void setAuthorContacDAO(AuthorContactDAO authorContacDAO) {
+        this.authorContacDAO = authorContacDAO;
+    }
+
+    public AuthorDAO getAuthorDAO() {
+        return authorDAO;
+    }
+
+    public void setAuthorDAO(AuthorDAO authorDAO) {
+        this.authorDAO = authorDAO;
+    }
+
+    @Override
+    public List<AuthorContact> findAll() {
+        return authorContacDAO.findAll();
+    }
+
+    @Override
+    public AuthorContact save(AuthorContact authorContact) {
+        return authorContacDAO.save(authorContact);
+    }
+
+    @Override
+    public boolean deleteAll() {
+        return authorContacDAO.deleteAll();
+
+    }
 
     @Override
     public Author findByName(String name) {
-        return dao.findByName(name);
+        return authorDAO.findByName(name);
     }
 
-        @Override
-    public List<Author> findAll() {
-        return dao.findAll();
-    }
 }

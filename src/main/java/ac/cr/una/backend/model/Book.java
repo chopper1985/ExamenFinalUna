@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -36,11 +37,11 @@ public class Book implements Serializable {
     @Column(name = "idBook", unique = true, nullable = false, length = 10)
     private int idBook;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
     @JoinColumn(name = "idAuthor", nullable = false)
     private Author author;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
     @JoinColumn(name = "idType", nullable = false)
     private BookType type;
 
@@ -48,6 +49,7 @@ public class Book implements Serializable {
     private String name;
 
     @Column(name = "dateRelease", nullable = false, length = 10)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dateRelease;
 
     @Column(name = "price", nullable = false, length = 10)

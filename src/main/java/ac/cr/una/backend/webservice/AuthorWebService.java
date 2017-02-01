@@ -14,7 +14,10 @@ import ac.cr.una.backend.model.AuthorContact;
 import ac.cr.una.backend.service.AuthorService;
 import ac.cr.una.backend.service.AuthorServiceImpl;
 import java.util.List;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -52,29 +55,56 @@ public class AuthorWebService {
         return autor;
     }
 
+//    @GET
+//    @Path("/")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Author> getAllAuthors() {
+//        List<Author> authorList = null;
+//        autorDAO = new AuthorDAOImpl();
+//        autorService = new AuthorServiceImpl(autorDAO);
+//
+//        authorList = autorService.findAll();
+//
+//        return authorList;
+//    }
+    
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Author> getAllAuthors() {
-        List<Author> authorList = null;
-        autorDAO = new AuthorDAOImpl();
-        autorService = new AuthorServiceImpl(autorDAO);
+    public List<AuthorContact> getAllAuthors() {
+        List<AuthorContact> authorList = null;
+        autorContactDAO = new AuthorContactDAOImpl();
+        autorService = new AuthorServiceImpl(autorContactDAO);
 
         authorList = autorService.findAll();
 
         return authorList;
     }
-    
-        @GET
+        
+    @POST
     @Path("/")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<AuthorContact> getAllAuthorss() {
-        List<AuthorContact> authorList = null;
+    public AuthorContact createAuthor(AuthorContact authorContact) {
+
         autorContactDAO = new AuthorContactDAOImpl();
-        autorService = new AuthorServiceImpl();
+        autorService = new AuthorServiceImpl(autorContactDAO);
 
-        //authorList = autorService.findAll();
+        authorContact = autorService.save(authorContact);
 
-        return authorList;
+        return authorContact;
     }
+
+    @DELETE
+    @Path("/")
+    public boolean deleteAll() {
+        boolean result;
+        autorContactDAO = new AuthorContactDAOImpl();
+        autorService = new AuthorServiceImpl(autorContactDAO);
+        
+        result = autorService.deleteAll();
+
+        return result;
+    }
+
 }

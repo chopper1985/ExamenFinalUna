@@ -5,8 +5,7 @@
  */
 package ac.cr.una.backend.dao;
 
-import ac.cr.una.backend.model.Author;
-import ac.cr.una.backend.model.AuthorContact;
+import ac.cr.una.backend.model.BookType;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -18,48 +17,53 @@ import org.hibernate.Session;
  *
  * @author Josue
  */
-public class AuthorContactDAOImpl implements AuthorContactDAO {
+public class BookTypeDAOHibernateImpl implements BookTypeDAO {
 
     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
     @Override
-    public List<AuthorContact> findAll() {
-        List<AuthorContact> listAuthor = new ArrayList<>();
-
-        listAuthor = session.createCriteria(AuthorContact.class).list();
-
-        return listAuthor;
-    }
-
-    @Override
-    public AuthorContact save(AuthorContact authorContact) {
+    public BookType save(BookType bookType) {
         session.beginTransaction();
-        session.save(authorContact);
+        session.save(bookType);
         session.getTransaction().commit();
 
-        return authorContact;
+        return bookType;
     }
 
     @Override
     public boolean deleteAll() {
         boolean returnRes = false;
-        List<AuthorContact> listAuthor;
+        List<BookType> listBook;
 
-        listAuthor = findAll();
+        listBook = findAll();
 
-        listAuthor.stream().map((authorContact) -> {
+        listBook.stream().map((book) -> {
             session.beginTransaction();
-            return authorContact;
-        }).map((authorContact) -> {
-            session.delete(authorContact);
-            return authorContact;
+            return book;
+        }).map((book) -> {
+            session.delete(book);
+            return book;
         }).forEachOrdered((_item) -> {
             session.getTransaction().commit();
         });
 
         returnRes = true;
-        
+
         return returnRes;
 
+    }
+
+    public List<BookType> findAll() {
+        List<BookType> listbook = new ArrayList<>();
+
+        listbook = session.createCriteria(BookType.class).list();
+
+        return listbook;
+    }
+
+    @Override
+    public BookType findByName(String name) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 }

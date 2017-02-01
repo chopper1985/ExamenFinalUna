@@ -6,6 +6,7 @@
 package ac.cr.una.backend.service;
 
 import ac.cr.una.backend.model.Author;
+import ac.cr.una.backend.model.AuthorContact;
 import java.util.List;
 
 /**
@@ -14,8 +15,11 @@ import java.util.List;
  */
 public interface AuthorService {
 
+    public List<AuthorContact> findAll();
+
+    public AuthorContact save(AuthorContact authorContact);
+
+    public boolean deleteAll();
+
     public Author findByName(String name);
-
-    public List<Author> findAll();
-
 }
